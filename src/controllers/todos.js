@@ -1,20 +1,20 @@
-import { create, deleteOne, findAndCount, findOne, update } from '../database/services';
 import Todo from '../database/models/Todo';
+import { dbAction } from '../database/services';
 import * as send from '../utils/response';
 
 export const getTodos = async (req, res) => {
-  const todos = await findAndCount(res, Todo);
+  const todos = await dbAction(Todo, 'findAndCountAll');
   return send.success(res, 200, 'Todos retrieved.', todos);
 };
 export const getTodo = async (req, res) => {
-  const todo = await findOne(res, Todo, { where: { id: req.params.todoId } });
+  const todo = await dbAction(Todo, 'findOne', { where: { id: req.params.todoId } });
   if (!todo?.dataValues) return send.error(res, 404, 'Todo Not Found');
   return send.success(res, 200, 'Todo retrieved.', todo);
 };
 
 export const createTodo = async (req, res) => {
   const { title, description, priority } = req.body;
-  const newTodo = await create(res, Todo, {
+  const newTodo = await dbAction(Todo, 'create', {
     title,
     description,
     priority,
@@ -27,10 +27,8 @@ export const createTodo = async (req, res) => {
 
 export const updateTodo = async (req, res) => {
   const { title, description, priority } = req.body;
-  const todo = await findOne(res, Todo, { where: { id: +req.params.todoId, todoistId: req.user.id } });
-  console.log(todo.dataValues);
-  if (!todo) return send.error(res, 404, 'Todo not found.');
-  const updatedTodo = await update(res, todo, {
+  const { __todo: todo } = req;
+  const updatedTodo = await dbAction(todo, 'update', {
     title,
     description,
     priority,
@@ -40,8 +38,7 @@ export const updateTodo = async (req, res) => {
 };
 
 export const deleteTodo = async (req, res) => {
-  const todo = await findOne(res, Todo, { where: { id: +req.params.todoId, todoistId: req.user.id } });
-  if (!todo) return send.error(res, 404, 'Todo not found.');
-  await deleteOne(res, todo);
+  const { __todo: todo } = req;
+  await dbAction(todo, 'destroy');
   return send.success(res, 200, `Todo with title: ${todo.dataValues.title} deleted.`);
 };

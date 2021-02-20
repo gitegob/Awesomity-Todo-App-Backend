@@ -1,33 +1,26 @@
-import { error } from '../../utils/response';
-import { dbAction } from '../config';
+import log from "../../config/debug";
+import env from "../../config/env";
+import db from "../config";
 
-export const create = async (res, Model, data) => {
-  const result = await dbAction(res, Model.create(data));
-  if (result === 'error') return null;
+export const dbAction = async (model, action, data) => {
+  let result;
+  try {
+    result = await model[action](data);
+  } catch (error) {
+    log.sqlz(error);
+    result = null;
+  }
   return result;
 };
-export const update = async (res, instance, data) => {
-  const result = await dbAction(res, instance.update(data));
-  if (result === 'error') return null;
-  return result;
-};
-export const findAndCount = async (res, Model, conditions) => {
-  const result = await dbAction(res, Model.findAndCountAll(conditions));
-  if (result === 'error') return null;
-  return result;
-};
-export const findAll = async (res, Model, conditions) => {
-  const result = await dbAction(res, Model.findAll(conditions));
-  if (result === 'error') return null;
-  return result;
-};
-export const findOne = async (res, Model, conditions) => {
-  const result = await dbAction(res, Model.findOne(conditions));
-  if (result === 'error') return null;
-  return result;
-};
-export const deleteOne = async (res, instance, conditions) => {
-  const result = await dbAction(res, instance.destroy(conditions));
-  if (result === 'error') return null;
-  return result;
+
+export const testDB = async () => {
+  if (env.NODE_ENV !== 'test') {
+    try {
+      await db.authenticate();
+      return log.db('Database Connected...');
+    } catch (error) {
+      return log.error('Error:', error);
+    }
+  }
+  return null;
 };

@@ -1,8 +1,19 @@
 import { config } from 'dotenv';
 
 config();
+
+const {
+  NODE_ENV,
+  DATABASE_URL,
+  DEV_DB_URL,
+  TEST_DB_URL,
+  JWT_KEY
+} = process.env;
+
 export default {
-  NODE_ENV: process.env.NODE_ENV,
-  DATABASE_URL: process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.TEST_DB_URL,
-  JWT_KEY: process.env.JWT_KEY,
+  NODE_ENV,
+  DATABASE_URL,
+  DEV_DB_URL,
+  TEST_DB_URL,
+  JWT_KEY
 };

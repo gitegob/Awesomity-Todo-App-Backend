@@ -1,9 +1,9 @@
 import express, { json, urlencoded } from 'express';
 import { config } from 'dotenv';
-import { testDB } from './database/config';
 import { handleError } from './controllers';
 import routes from './routes';
 import log from './config/debug';
+import { testDB } from './database/services';
 
 config();
 const app = express();
@@ -13,7 +13,7 @@ app.use(require('morgan')('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 // TEST DB CONNECTION
-testDB(app);
+testDB();
 // ROUTING
 app.use(routes);
 // ERROR HANDLER
