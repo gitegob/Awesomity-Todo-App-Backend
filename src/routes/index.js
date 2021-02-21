@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import { notFound, welcome } from '../controllers';
+import { welcome } from '../controllers/welcome';
+import { notFound } from '../controllers/error';
 import authRoutes from './auth';
 import todoRoutes from './todos';
+
 const router = Router();
 
 router.get('/api', welcome);

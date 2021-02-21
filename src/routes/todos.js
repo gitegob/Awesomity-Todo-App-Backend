@@ -2,15 +2,37 @@ import { Router } from 'express';
 import { createTodo, getTodos, getTodo, updateTodo, deleteTodo } from '../controllers/todos';
 import { authenticate } from '../middleware/auth';
 import { findUserTodo } from '../middleware/check';
-import { paramtodoIdVal, todoUpdateVal, todoVal } from '../middleware/validation';
+import { validate } from '../middleware/validation';
 
 const router = Router();
 
-router.get('/', authenticate, getTodos);
-router.post('/', authenticate, todoVal, createTodo);
-router.get('/:todoId', authenticate, paramtodoIdVal, getTodo);
-router.patch('/:todoId', authenticate, paramtodoIdVal, todoUpdateVal, findUserTodo, updateTodo);
-router.delete('/:todoId', authenticate, paramtodoIdVal, findUserTodo, deleteTodo);
+router.get('/',
+  authenticate,
+  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
+  getTodos);
+
+router.post('/',
+  authenticate,
+  (req, res, next) => validate(res, req.body, 'todo', next),
+  createTodo);
+
+router.get('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  getTodo);
+
+router.patch('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  (req, res, next) => validate(res, req.body, 'todoUpdate', next),
+  findUserTodo,
+  updateTodo);
+
+router.delete('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  findUserTodo,
+  deleteTodo);
 
 
 

@@ -14,7 +14,7 @@ const Todo = db.define(
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     priority: {

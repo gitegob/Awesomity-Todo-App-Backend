@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from 'express';
 import { config } from 'dotenv';
-import { handleError } from './controllers';
+import { handleError } from './controllers/error';
 import routes from './routes';
 import log from './config/debug';
 import { testDB } from './database/services';
