@@ -40,13 +40,16 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^17.4.0",
+    "json-2-csv": "^3.10.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "pg-native": "^3.0.0",
     "sequelize": "^6.5.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "swagger-jsdoc": "5.0.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.12.17",

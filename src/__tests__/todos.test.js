@@ -1,7 +1,6 @@
 import chai from 'chai';
 import supertest from 'supertest';
 import app from '..';
-import log from '../config/debug';
 import db from '../database/config';
 import mockData from './utils/mockData';
 

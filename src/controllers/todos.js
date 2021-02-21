@@ -1,14 +1,23 @@
-import { Op } from 'sequelize';
+import path from 'path';
 import Todo from '../database/models/Todo';
 import { dbAction } from '../database/services';
+import { toCSV } from '../utils/csv';
 import * as send from '../utils/response';
+import { findTodos } from '../utils/finder';
 
 export const getTodos = async (req, res) => {
-  let conditions = { todoistId: req.user.id };
-  if (req.query?.s) conditions = { ...conditions, title: { [Op.iLike]: `%${req.query.s}%` } };
-  const todos = await dbAction(Todo, 'findAndCountAll', { order: [["createdAt", "DESC"]], where: conditions });
+  const todos = await findTodos(req);
   return send.success(res, 200, 'Todos retrieved.', todos);
 };
+
+export const exportTodos = async (req, res) => {
+  const todos = await findTodos(req);
+  toCSV(todos);
+  return res
+    .status(200)
+    .download(path.join(__dirname, '..', '..', 'Todos.csv'), 'Todos.csv');
+};
+
 export const getTodo = async (req, res) => {
   const todo = await dbAction(Todo, 'findOne', { where: { todoistId: req.user.id, id: req.params.todoId } });
   if (!todo?.dataValues) return send.error(res, 404, 'Todo Not Found');

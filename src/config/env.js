@@ -7,7 +7,8 @@ const {
   DATABASE_URL,
   DEV_DB_URL,
   TEST_DB_URL,
-  JWT_KEY
+  JWT_KEY,
+  SERVER_URL,
 } = process.env;
 
 export default {
@@ -15,5 +16,6 @@ export default {
   DATABASE_URL,
   DEV_DB_URL,
   TEST_DB_URL,
-  JWT_KEY
+  JWT_KEY,
+  SERVER_URL
 };
