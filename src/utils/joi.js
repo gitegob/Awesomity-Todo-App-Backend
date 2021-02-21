@@ -1,62 +1,39 @@
 import Joi from 'joi';
 
+const stringRequired = Joi.string().trim().required();
+const nameSchema = stringRequired.regex(/^[\sA-Za-z]{1,}$/);
+
 const schema = {
-  signup: Joi.object({
-    firstName: Joi
-      .string()
-      .trim()
-      .regex(/^[\sA-Za-z]{1,}$/)
-      .required()
-      .error(new Error('firstName is required and cannot only contain letters')),
-    lastName: Joi
-      .string()
-      .trim()
-      .regex(/^[\sA-Za-z]{1,}$/)
-      .required()
-      .error(new Error('lastName is required and cannot only contain letters')),
-    username: Joi
-      .string()
-      .trim()
+  signup: Joi.object().keys({
+    firstName: nameSchema
+      .error(new Error('firstName is required and can only contain letters')),
+    lastName: nameSchema
+      .error(new Error('lastName is required and can only contain letters')),
+    username: stringRequired
       .regex(/^[a-zA-Z]([a-zA-Z0-9_.]){3,20}$/)
-      .required()
       .error(new Error('username must be 4-20 characters with letters and numbers and start with a letter')),
-    password: Joi
-      .string()
-      .trim()
+    password: stringRequired
       .regex(/^(?=.*[a-z])(?=.*[A-Z]).{5,128}$/)
-      .required()
       .error(new Error('password must be atleast 6 characters with atleast 1 capital letter')),
   }),
-  login: Joi.object({
-    username: Joi
-      .string()
-      .trim()
-      .required()
+  login: Joi.object().keys({
+    username: stringRequired
       .error(new Error('username is required')),
-    password: Joi
-      .string()
-      .trim()
-      .required()
+    password: stringRequired
       .error(new Error('password is required')),
   }),
-  todo: Joi.object({
-    title: Joi
-      .string()
-      .trim()
+  todo: Joi.object().keys({
+    title: stringRequired
       .max(100)
-      .required()
       .error(new Error('title is required and must not exceed 100 characters')),
-    description: Joi
-      .string()
-      .trim()
-      .required()
+    description: stringRequired
       .error(new Error('description is required')),
     priority: Joi.string()
       .valid('HIGH', 'MEDIUM', 'LOW')
       .required()
       .error(new Error('priority is required and must be one of HIGH, MEDIUM or LOW')),
   }),
-  todoUpdate: Joi.object({
+  todoUpdate: Joi.object().keys({
     title: Joi
       .string()
       .trim()

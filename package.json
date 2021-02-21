@@ -4,11 +4,14 @@
   "description": "API of ToDo App as a challenge from Awesomity",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test DEBUG=app:test:* nyc --reporter=text mocha --require @babel/register ./src/__tests__/*.test.js --timeout 10000 --exit",
+    "test:watch": "DEBUG=app:test:* jest --watchAll",
     "start": "DEBUG=app:app,sequelize babel-node ./src",
     "dev": "DEBUG=app:* nodemon --exec babel-node ./src",
     "sync": "DEBUG=sequelize  babel-node ./src/database/services/sync.js",
-    "sync:force": "DEBUG=sequelize  babel-node ./src/database/services/forceSync.js"
+    "sync:force": "DEBUG=sequelize  babel-node ./src/database/services/forceSync.js",
+    "sync:test": "NODE_ENV=test babel-node ./src/database/services/forceSync.js --exit",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -43,9 +46,20 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "pg-native": "^3.0.0",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "@babel/plugin-transform-runtime": "^7.12.17",
+    "@babel/register": "^7.12.13",
+    "chai": "^4.3.0",
+    "coveralls": "^3.1.0",
+    "jest": "^26.6.3",
+    "mocha": "^8.3.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.4",
+    "supertest": "^6.1.3"
   }
 }
