@@ -9,7 +9,7 @@ const request = supertest(app);
 
 describe('App tests', () => {
   it('should display a welcome message', async () => {
-    const res = await request.get('/api');
+    const res = await request.get('/');
     expect(res.status).to.eql(200);
   });
   it('should display a not found message', async () => {

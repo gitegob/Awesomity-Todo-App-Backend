@@ -1,0 +1,28 @@
+/api/auth/login:
+  post:
+    summary: Log in a user.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewTodoist'
+    responses:
+      200:
+        description: An access token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: number
+                  description: A response status code
+                  example: 200
+                data:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+                      description: Access Token
+                      example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiQnJpYW4iLCJsYXN0TmFtZSI6IkdpdGVnbyIsInVzZXJuYW1lIjoiZ2JyaWFuIiwiaWF0IjoxNjEzOTE1ODQ3LCJleHAiOjE2MTQwMDIyNDd9.5QBda2_LSTOHG6P4HnZ_rwO8aU2MUcx5cHXGFPDUkAg
