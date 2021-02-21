@@ -4,8 +4,7 @@
   "description": "API of ToDo App as a challenge from Awesomity",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test DEBUG=app:test:* nyc --reporter=text mocha --require @babel/register ./src/__tests__/*.test.js --timeout 10000 --exit",
-    "test:watch": "DEBUG=app:test:* jest --watchAll",
+    "test": "NODE_ENV=test DEBUG=app:test:* nyc mocha --require @babel/register ./src/__tests__/*.test.js --timeout 10000 --exit",
     "start": "DEBUG=app:app,sequelize babel-node ./src",
     "dev": "DEBUG=app:* nodemon --exec babel-node ./src",
     "sync": "DEBUG=sequelize  babel-node ./src/database/services/sync.js",

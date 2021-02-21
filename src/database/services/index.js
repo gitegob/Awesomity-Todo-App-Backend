@@ -8,6 +8,7 @@ export const dbAction = async (model, action, data) => {
     result = await model[action](data);
   } catch (error) {
     log.sqlz(error);
+    log.test(error);
     result = null;
   }
   return result;

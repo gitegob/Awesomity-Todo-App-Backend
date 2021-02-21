@@ -1,13 +1,16 @@
+import { Op } from 'sequelize';
 import Todo from '../database/models/Todo';
 import { dbAction } from '../database/services';
 import * as send from '../utils/response';
 
 export const getTodos = async (req, res) => {
-  const todos = await dbAction(Todo, 'findAndCountAll');
+  let conditions = { todoistId: req.user.id };
+  if (req.query?.s) conditions = { ...conditions, title: { [Op.iLike]: `%${req.query.s}%` } };
+  const todos = await dbAction(Todo, 'findAndCountAll', { order: [["createdAt", "DESC"]], where: conditions });
   return send.success(res, 200, 'Todos retrieved.', todos);
 };
 export const getTodo = async (req, res) => {
-  const todo = await dbAction(Todo, 'findOne', { where: { id: req.params.todoId } });
+  const todo = await dbAction(Todo, 'findOne', { where: { todoistId: req.user.id, id: req.params.todoId } });
   if (!todo?.dataValues) return send.error(res, 404, 'Todo Not Found');
   return send.success(res, 200, 'Todo retrieved.', todo);
 };
