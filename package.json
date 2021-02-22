@@ -4,13 +4,14 @@
   "description": "API of ToDo App as a challenge from Awesomity",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test DEBUG=app:test:* nyc mocha --require @babel/register ./src/__tests__/*.test.js --timeout 10000 --exit",
-    "start": "DEBUG=app:app,sequelize babel-node ./src",
+    "test": "NODE_ENV=test DEBUG=app:test:*,app:app: nyc mocha --require @babel/register ./src/__tests__/*.test.js --timeout 10000 --exit",
+    "start": "DEBUG=app:app:,app:error:,app:db: babel-node ./src",
     "dev": "DEBUG=app:* nodemon --exec babel-node ./src",
-    "sync": "DEBUG=sequelize  babel-node ./src/database/services/sync.js",
-    "sync:force": "DEBUG=sequelize  babel-node ./src/database/services/forceSync.js",
+    "sync": "DEBUG=sequelize:  babel-node ./src/database/services/sync.js",
+    "sync:force": "DEBUG=sequelize:  babel-node ./src/database/services/forceSync.js",
     "sync:test": "NODE_ENV=test babel-node ./src/database/services/forceSync.js --exit",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "dev:docker": "npm run sync:force && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@babel/cli": "^7.12.17",
     "@babel/core": "^7.12.17",
     "@babel/node": "^7.12.17",
+    "@babel/plugin-transform-runtime": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
@@ -47,16 +49,14 @@
     "pg-hstore": "^2.3.3",
     "pg-native": "^3.0.0",
     "sequelize": "^6.5.0",
-    "sqlite3": "^5.0.2",
     "swagger-jsdoc": "5.0.1",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.12.17",
     "@babel/register": "^7.12.13",
     "chai": "^4.3.0",
     "coveralls": "^3.1.0",
-    "jest": "^26.6.3",
     "mocha": "^8.3.0",
     "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^2.0.7",

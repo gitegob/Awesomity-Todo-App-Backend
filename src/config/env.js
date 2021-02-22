@@ -9,6 +9,7 @@ const {
   TEST_DB_URL,
   JWT_KEY,
   SERVER_URL,
+  APP_ADMIN_SECRET
 } = process.env;
 
 export default {
@@ -17,5 +18,6 @@ export default {
   DEV_DB_URL,
   TEST_DB_URL,
   JWT_KEY,
-  SERVER_URL
+  SERVER_URL,
+  APP_ADMIN_SECRET
 };

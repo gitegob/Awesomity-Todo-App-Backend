@@ -51,12 +51,12 @@ const schema = {
     .number()
     .min(1)
     .max(1000000)
-    .error(new Error('Invalid Todo Id Paramater')),
+    .error(new Error('Invalid Todo Id Parameter')),
   todoSearch: Joi
     .string()
     .trim()
-    .max(1000)
-    .error(new Error('Invalid Search Paramater')),
+    .max(100)
+    .error(new Error('Invalid Search Parameter')),
 };
 export const joiVal = (valSchema, obj) => {
   const { error } = schema[valSchema].validate(obj);

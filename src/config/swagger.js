@@ -1,4 +1,3 @@
-import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import env from './env';
 
