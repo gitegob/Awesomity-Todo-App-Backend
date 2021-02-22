@@ -37,28 +37,6 @@ import { validate } from '../middleware/validation';
  *           type: string
  *           description: The Todoist's password.
  *           example: Password
- *     SuccessResponse:
- *       type: object
- *       properties:
- *         status:
- *           type: number
- *           description: A response status code
- *           example: 401
- *         message:
- *           type: string
- *           description: A response  error message
- *           example: Request Successful
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         status:
- *           type: number
- *           description: A response status code
- *           example: 401
- *         error:
- *           type: string
- *           description: A response  error message
- *           example: Request Failed
  *        
 */
 
@@ -121,5 +99,6 @@ router.post('/signup',
   (req, res, next) => validate(res, req.body, 'signup', next),
   signupCheck,
   signup);
+
 
 export default router;

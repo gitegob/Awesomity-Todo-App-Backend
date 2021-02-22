@@ -56,8 +56,6 @@ import { validate } from '../middleware/validation';
  *           type: string
  *           description: A response  error message
  *           example: Success message
- *         data:
- *           type: object
  *     ErrorResponse:
  *       type: object
  *       properties:
@@ -73,6 +71,45 @@ import { validate } from '../middleware/validation';
 */
 
 const router = Router();
+
+
+router.get('/',
+  authenticate,
+  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
+  getTodos);
+
+
+router.get('/export',
+  authenticate,
+  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
+  exportTodos);
+
+
+router.post('/',
+  authenticate,
+  (req, res, next) => validate(res, req.body, 'todo', next),
+  createTodo);
+
+
+router.get('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  getTodo);
+
+
+router.patch('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  (req, res, next) => validate(res, req.body, 'todoUpdate', next),
+  findUserTodo,
+  updateTodo);
+
+
+router.delete('/:todoId',
+  authenticate,
+  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
+  findUserTodo,
+  deleteTodo);
 
 /**
  * @swagger
@@ -114,10 +151,6 @@ const router = Router();
  *               $ref: '#/components/schemas/ErrorResponse'
  *                 
 */
-router.get('/',
-  authenticate,
-  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
-  getTodos);
 
 /**
  * @swagger
@@ -148,10 +181,6 @@ router.get('/',
  *               $ref: '#/components/schemas/ErrorResponse'
  *                 
 */
-router.get('/export',
-  authenticate,
-  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
-  exportTodos);
 
 /**
  * @swagger
@@ -195,10 +224,6 @@ router.get('/export',
  *               $ref: '#/components/schemas/ErrorResponse'
  *                 
  *  */
-router.post('/',
-  authenticate,
-  (req, res, next) => validate(res, req.body, 'todo', next),
-  createTodo);
 
 /**
  * @swagger
@@ -239,10 +264,6 @@ router.post('/',
  *               $ref: '#/components/schemas/ErrorResponse'
  *                 
 */
-router.get('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  getTodo);
 
 /**
 * @swagger
@@ -295,12 +316,6 @@ router.get('/:todoId',
 *               $ref: '#/components/schemas/ErrorResponse'
 *                 
 *  */
-router.patch('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  (req, res, next) => validate(res, req.body, 'todoUpdate', next),
-  findUserTodo,
-  updateTodo);
 
 /**
 * @swagger
@@ -342,12 +357,5 @@ router.patch('/:todoId',
 *               $ref: '#/components/schemas/ErrorResponse'
 *                 
 */
-router.delete('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  findUserTodo,
-  deleteTodo);
-
-
 
 export default router;

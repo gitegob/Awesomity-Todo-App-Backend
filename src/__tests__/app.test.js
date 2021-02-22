@@ -16,4 +16,8 @@ describe('App tests', () => {
     const res = await request.get('/api/foo');
     expect(res.status).to.eql(404);
   });
+  it('should display an unauthorized message', async () => {
+    const res = await request.get('/api/logs/foo');
+    expect(res.status).to.eql(403);
+  });
 });
