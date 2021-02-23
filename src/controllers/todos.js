@@ -10,12 +10,13 @@ export const getTodos = async (req, res) => {
   return send.success(res, 200, 'Todos retrieved.', todos);
 };
 
-export const exportTodos = async (req, res) => {
+export const exportTodos = async (req, res, next) => {
   const todos = await findTodos(req);
-  toCSV(todos);
+  const error = await toCSV(todos);
+  if (error) return next(error);
   return res
     .status(200)
-    .download(path.join(__dirname, '..', '..', 'Todos.csv'), 'Todos.csv');
+    .download(path.join(`${__dirname}`, '..', '..', 'todos.csv'), 'todos.csv');
 };
 
 export const getTodo = async (req, res) => {
