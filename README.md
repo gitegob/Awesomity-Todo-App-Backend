@@ -56,7 +56,16 @@ npm test
 npm run dev
 ```
 
-Test the endpoints in your favorite API client, I strongly recommend [Postman](https://www.getpostman.com/) though :ok_hand:
+# Running the app through docker
+
+- Install Docker from [Docker For Mac](https://docs.docker.com/docker-for-mac/install/) or [Docker For Windows](https://docs.docker.com/docker-for-windows/install/)for windows you will also need to install [docker-compose](https://docs.docker.com/compose/install/)
+- After cloning the application from Github. Switch to the main app where there's the Dockerfile and the docker-compose.yml file
+- Create a .env file and copy .env.example and fill out all the variables with your own
+- If you have postgres installed on your computer, stop any server instance of it that may be running. Do this by running `sudo systemctl stop postgresql` if you are on a Linux OS.
+
+- Run `docker-compose up` (Prefix this with `sudo` if you are running a Linux OS). Make sure port `5000` is not taken, if so customise the port in .env file by adding the PORT variable.
+
+_Test the endpoints with your on http://localhost:5000/api/docs or with your favorite API client, I strongly recommend [Postman](https://www.getpostman.com/) though :ok_hand:_
 
 ## Sample Request
 
@@ -87,12 +96,13 @@ Test the endpoints in your favorite API client, I strongly recommend [Postman](h
 - Database engine: **Postgres**
 - ORM: **Sequelize**
 
-# More Tools
+# Other Tools
 
 - Continuous integration: **[Travis-Ci](travis-ci.org)**
 - ES6 Transpiler: **[Babel](babeljs.io)**
 - Test coverage: **[nyc](https://www.npmjs.com/package/nyc)**
 - Maintainability: **[Code climate](https://codeclimate.com)**
+- Container: **[Docker](https://docker.com)**
 
 # Deployments
 

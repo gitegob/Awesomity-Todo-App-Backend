@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todoapp
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    restart: always
+  web:
+    environment:
+      DEV_DB_URL: postgresql://postgres:postgres@db:5432/todoapp
+      JWT_KEY: ${JWT_KEY}
+      NODE_ENV: ${NODE_ENV}
+      SERVER_URL: ${SERVER_URL}
+      APP_ADMIN_SECRET: ${APP_ADMIN_SECRET}
+    build: .
+    depends_on:
+      - db
+    ports:
+      - '5000:5000'
+    restart: always
