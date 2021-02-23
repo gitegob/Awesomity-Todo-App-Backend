@@ -3,7 +3,7 @@ import ObjectsToCsv from 'objects-to-csv';
 
 /** Export array to csv
  * 
- * @param {object} arr password
+ * @param {object} arr array to csverize
  * @returns {null}
  */
 export const toCSV = async (arr) => {
