@@ -3,7 +3,7 @@ import log from '../../config/debug';
 import env from '../../config/env';
 
 /**
- * 
+ *
  * @returns {string} Database Connection string
  */
 const dbEnv = () => {
@@ -16,8 +16,8 @@ const dbEnv = () => {
 const db = new Sequelize(dbEnv(), {
   dialect: 'postgres',
   protocol: 'postgres',
-  native: env.NODE_ENV === 'production' ? true : false,
-  logging: (msg) => log.sqlz(msg)
+  native: env.NODE_ENV === 'production',
+  logging: (msg) => log.sqlz(msg),
 });
 
 export default db;

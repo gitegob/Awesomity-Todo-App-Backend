@@ -7,7 +7,7 @@ const Password = db.define(
   {
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
   },
   { timestamps: false },

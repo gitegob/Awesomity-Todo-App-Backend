@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import env from '../config/env';
 
 /** Generate a token
- * 
+ *
  * @param {object} data Payload
  * @returns {string} Token
  */
@@ -12,7 +12,7 @@ export const signToken = (data) => {
 };
 
 /** Generate a token
- * 
+ *
  * @param {string} Token
  * @returns {object} Decoded payload
  */
