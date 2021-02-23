@@ -58,6 +58,13 @@ const schema = {
     .max(100)
     .error(new Error('Invalid Search Parameter')),
 };
+
+/** Validate Joi error
+ * 
+ * @param {object} valSchema Name of validation scheme
+ * @param {object} obj Object to validate
+ * @returns {string} Error message
+ */
 export const joiVal = (valSchema, obj) => {
   const { error } = schema[valSchema].validate(obj);
   return error?.message;

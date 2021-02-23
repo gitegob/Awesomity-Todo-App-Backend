@@ -3,6 +3,13 @@ import Todoist from '../database/models/Todoist';
 import * as send from '../utils/response';
 import { verifyToken } from '../utils/jwt';
 
+/** Authenticate the user token
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @param {object} next move on to next middleware
+ * @returns {object} Decoded data from payload
+ */
 export const authenticate = async (req, res, next) => {
   const { authorization = '' } = req.headers;
   const token = authorization.split(' ')[1];

@@ -2,6 +2,10 @@ import { Sequelize } from 'sequelize';
 import log from '../../config/debug';
 import env from '../../config/env';
 
+/**
+ * 
+ * @returns {string} Database Connection string
+ */
 const dbEnv = () => {
   log.env('NODE_ENV', env.NODE_ENV);
   if (env.NODE_ENV === 'production') return env.DATABASE_URL;
