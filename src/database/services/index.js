@@ -3,6 +3,13 @@ import env from "../../config/env";
 import logger from "../../config/logger";
 import db from "../config";
 
+/** Handle database calls
+ * 
+ * @param {object} model Database model or its instance
+ * @param {string} action Action to be performed
+ * @param {object} data data or conditions
+ * @returns {object} result
+ */
 export const dbAction = async (model, action, data) => {
   let result;
   try {
@@ -15,6 +22,10 @@ export const dbAction = async (model, action, data) => {
   return result;
 };
 
+/** Test the database connection
+ * 
+ * @returns {object} result
+ */
 export const testDB = async () => {
   if (env.NODE_ENV !== 'test') {
     try {

@@ -5,11 +5,23 @@ import { toCSV } from '../utils/csv';
 import * as send from '../utils/response';
 import { findTodos } from '../utils/finder';
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} List of todos
+ */
 export const getTodos = async (req, res) => {
   const todos = await findTodos(req);
   return send.success(res, 200, 'Todos retrieved.', todos);
 };
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} CSV List of todos
+ */
 export const exportTodos = async (req, res, next) => {
   const todos = await findTodos(req);
   const error = await toCSV(todos);
@@ -19,12 +31,24 @@ export const exportTodos = async (req, res, next) => {
     .download(path.join(`${__dirname}`, '..', '..', 'todos.csv'), 'todos.csv');
 };
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} Single todo
+ */
 export const getTodo = async (req, res) => {
   const todo = await dbAction(Todo, 'findOne', { where: { todoistId: req.user.id, id: req.params.todoId } });
   if (!todo?.dataValues) return send.error(res, 404, 'Todo Not Found');
   return send.success(res, 200, 'Todo retrieved.', todo);
 };
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} Created Todo
+ */
 export const createTodo = async (req, res) => {
   const { title, description, priority } = req.body;
   const newTodo = await dbAction(Todo, 'create', {
@@ -38,6 +62,12 @@ export const createTodo = async (req, res) => {
   return send.success(res, 201, 'Todo created', newTodo.dataValues);
 };
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} Updated todo
+ */
 export const updateTodo = async (req, res) => {
   const { title, description, priority } = req.body;
   const { __todo: todo } = req;
@@ -50,6 +80,12 @@ export const updateTodo = async (req, res) => {
   return send.success(res, 200, 'Todo updated.', updatedTodo);
 };
 
+/**
+ * 
+ * @param {object} req request
+ * @param {object} res response
+ * @returns {object} Success
+ */
 export const deleteTodo = async (req, res) => {
   const { __todo: todo } = req;
   await dbAction(todo, 'destroy');
