@@ -1,12 +1,12 @@
-import logger from '../config/logger';
 import ObjectsToCsv from 'objects-to-csv';
+import logger from '../config/logger';
 
 /** Export array to csv
- * 
+ *
  * @param {object} arr array to csverize
  * @returns {null}
  */
-export const toCSV = async (arr) => {
+const toCSV = async (arr) => {
   try {
     const csv = new ObjectsToCsv(arr);
     await csv.toDisk(`${__dirname}/../../todos.csv`);
@@ -16,3 +16,5 @@ export const toCSV = async (arr) => {
     return error;
   }
 };
+
+export default toCSV;

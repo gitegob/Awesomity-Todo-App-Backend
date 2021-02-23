@@ -7,20 +7,20 @@ const Todo = db.define(
   {
     todoistName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     priority: {
       type: DataTypes.STRING,
       validate: {
-        isIn: [['HIGH', 'MEDIUM', 'LOW']]
+        isIn: [['HIGH', 'MEDIUM', 'LOW']],
       },
       allowNull: false,
     },

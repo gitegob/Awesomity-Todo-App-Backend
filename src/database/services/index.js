@@ -1,10 +1,10 @@
-import log from "../../config/debug";
-import env from "../../config/env";
-import logger from "../../config/logger";
-import db from "../config";
+import log from '../../config/debug';
+import env from '../../config/env';
+import logger from '../../config/logger';
+import db from '../config';
 
 /** Handle database calls
- * 
+ *
  * @param {object} model Database model or its instance
  * @param {string} action Action to be performed
  * @param {object} data data or conditions
@@ -23,7 +23,7 @@ export const dbAction = async (model, action, data) => {
 };
 
 /** Test the database connection
- * 
+ *
  * @returns {object} result
  */
 export const testDB = async () => {

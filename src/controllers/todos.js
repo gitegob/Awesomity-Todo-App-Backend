@@ -1,12 +1,12 @@
 import path from 'path';
 import Todo from '../database/models/Todo';
 import { dbAction } from '../database/services';
-import { toCSV } from '../utils/csv';
+import toCSV from '../utils/csv';
 import * as send from '../utils/response';
-import { findTodos } from '../utils/finder';
+import findTodos from '../utils/finder';
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} List of todos
@@ -17,7 +17,7 @@ export const getTodos = async (req, res) => {
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} CSV List of todos
@@ -32,7 +32,7 @@ export const exportTodos = async (req, res, next) => {
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Single todo
@@ -44,7 +44,7 @@ export const getTodo = async (req, res) => {
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Created Todo
@@ -56,14 +56,14 @@ export const createTodo = async (req, res) => {
     description,
     priority,
     todoistId: req.user.id,
-    todoistName: `${req.user.firstName} ${req.user.lastName}`
+    todoistName: `${req.user.firstName} ${req.user.lastName}`,
   });
   if (!newTodo?.dataValues) return send.error(res, 500, 'Todo creation failed');
   return send.success(res, 201, 'Todo created', newTodo.dataValues);
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Updated todo
@@ -75,13 +75,13 @@ export const updateTodo = async (req, res) => {
     title,
     description,
     priority,
-    modifiedAt: new Date().toLocaleString()
+    modifiedAt: new Date().toLocaleString(),
   });
   return send.success(res, 200, 'Todo updated.', updatedTodo);
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Success

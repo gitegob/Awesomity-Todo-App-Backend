@@ -6,7 +6,7 @@ import { hashPassword } from '../utils/bcrypt';
 import { signToken } from '../utils/jwt';
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Success, Token
@@ -18,7 +18,7 @@ export const login = async (req, res) => {
 };
 
 /**
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @returns {object} Success

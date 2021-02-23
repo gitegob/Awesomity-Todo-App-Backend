@@ -60,7 +60,7 @@ const schema = {
 };
 
 /** Validate Joi error
- * 
+ *
  * @param {object} valSchema Name of validation scheme
  * @param {object} obj Object to validate
  * @returns {string} Error message

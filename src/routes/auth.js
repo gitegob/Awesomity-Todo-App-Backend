@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { login, signup } from '../controllers/auth';
 import { loginCheck, signupCheck } from '../middleware/check';
-import { validate } from '../middleware/validation';
+import validate from '../middleware/validation';
 
 /**
  * @swagger
@@ -37,7 +37,7 @@ import { validate } from '../middleware/validation';
  *           type: string
  *           description: The Todoist's password.
  *           example: Password
- *        
+ *
 */
 
 const router = Router();
@@ -58,13 +58,13 @@ const router = Router();
  *     responses:
  *       200:
  *         description: Login Successful
- *               
+ *
  *       401:
  *         description: Invalid username or password
- *       
+ *
  *       400:
  *         description: Invalid data entries
- *                 
+ *
 */
 router.post('/login',
   (req, res, next) => validate(res, req.body, 'login', next),
@@ -87,18 +87,17 @@ router.post('/login',
  *     responses:
  *       201:
  *         description: Signup successful
- *               
+ *
  *       409:
  *         description: Todoist already exists
- * 
+ *
  *       400:
  *         description: Invalid data entries
- *                 
+ *
 */
 router.post('/signup',
   (req, res, next) => validate(res, req.body, 'signup', next),
   signupCheck,
   signup);
-
 
 export default router;

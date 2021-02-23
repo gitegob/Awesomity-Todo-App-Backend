@@ -1,12 +1,12 @@
-import Password from "../database/models/Password";
-import Todo from "../database/models/Todo";
-import Todoist from "../database/models/Todoist";
-import { dbAction } from "../database/services";
-import { checkPassword } from "../utils/bcrypt";
-import * as send from "../utils/response";
+import Password from '../database/models/Password';
+import Todo from '../database/models/Todo';
+import Todoist from '../database/models/Todoist';
+import { dbAction } from '../database/services';
+import { checkPassword } from '../utils/bcrypt';
+import * as send from '../utils/response';
 
 /** Find a user's task before performing further tasks on it
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @param {object} next move on to next middleware
@@ -20,7 +20,7 @@ export const findUserTodo = async (req, res, next) => {
 };
 
 /** Find a user and their password before logging in
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @param {object} next move on to next middleware
@@ -38,7 +38,7 @@ export const loginCheck = async (req, res, next) => {
 };
 
 /** Check to see if a user already exists before signup
- * 
+ *
  * @param {object} req request
  * @param {object} res response
  * @param {object} next move on to next middleware

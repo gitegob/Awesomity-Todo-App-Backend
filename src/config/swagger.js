@@ -11,13 +11,13 @@ const swaggerSpecs = swaggerJsDoc({
       contact: {
         name: 'Brian Gitego',
         email: 'gitegob7@gmail.com',
-        github: 'https://github.com/gitego-brian'
+        github: 'https://github.com/gitego-brian',
       },
     },
     url: env.SERVER_URL,
   },
   security: ['JWT'],
-  apis: ['src/routes/*.js']
+  apis: ['src/routes/*.js'],
 });
 
 export default swaggerSpecs;

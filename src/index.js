@@ -14,6 +14,7 @@ const app = express();
 // MIDDLEWARE
 app.use(require('cors')());
 app.use(require('morgan')('dev'));
+
 app.use(json());
 app.use(urlencoded({ extended: false }));
 

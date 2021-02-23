@@ -1,5 +1,5 @@
 /** Send a success response
- * 
+ *
  * @param {object} res response object
  * @param {number} status Status code
  * @param {string} message Message
@@ -9,17 +9,17 @@
 export const success = (res, status, message, data) => res.status(status).json({
   status,
   message,
-  data: data || null
+  data: data || null,
 });
 
 /** Send an error response
- * 
+ *
  * @param {object} res response object
  * @param {number} status Status code
  * @param {string} error Message
  * @returns {object} response
  */
-export const error = (res, status, error) => res.status(status).json({
+export const error = (res, status, err) => res.status(status).json({
   status,
-  error,
+  error: err,
 });

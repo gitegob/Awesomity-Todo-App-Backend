@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { createTodo, getTodos, getTodo, updateTodo, deleteTodo, exportTodos } from '../controllers/todos';
-import { authenticate } from '../middleware/auth';
+import {
+  createTodo, getTodos, getTodo, updateTodo, deleteTodo, exportTodos,
+} from '../controllers/todos';
+import authenticate from '../middleware/auth';
 import { findUserTodo } from '../middleware/check';
-import { validate } from '../middleware/validation';
+import validate from '../middleware/validation';
 
 /**
  * @swagger
@@ -67,35 +69,30 @@ import { validate } from '../middleware/validation';
  *           type: string
  *           description: A response  error message
  *           example: Error message
- *        
+ *
 */
 
 const router = Router();
-
 
 router.get('/',
   authenticate,
   (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
   getTodos);
 
-
 router.get('/export',
   authenticate,
   (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
   exportTodos);
-
 
 router.post('/',
   authenticate,
   (req, res, next) => validate(res, req.body, 'todo', next),
   createTodo);
 
-
 router.get('/:todoId',
   authenticate,
   (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
   getTodo);
-
 
 router.patch('/:todoId',
   authenticate,
@@ -103,7 +100,6 @@ router.patch('/:todoId',
   (req, res, next) => validate(res, req.body, 'todoUpdate', next),
   findUserTodo,
   updateTodo);
-
 
 router.delete('/:todoId',
   authenticate,
@@ -142,14 +138,14 @@ router.delete('/:todoId',
  *                        type: array
  *                        items:
  *                          $ref: '#/components/schemas/NewTodo'
- *               
+ *
  *       401:
  *         description: Unauthenticated
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *                 
+ *
 */
 
 /**
@@ -172,14 +168,14 @@ router.delete('/:todoId',
  *     responses:
  *       200:
  *         description: Success
- *               
+ *
  *       401:
  *         description: Unauthenticated
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *                 
+ *
 */
 
 /**
@@ -209,7 +205,7 @@ router.delete('/:todoId',
  *                   properties:
  *                     data:
  *                       $ref: '#/components/schemas/NewTodo'
- *               
+ *
  *       401:
  *         description: Unauthenticated
  *         content:
@@ -222,7 +218,7 @@ router.delete('/:todoId',
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *                 
+ *
  *  */
 
 /**
@@ -255,14 +251,14 @@ router.delete('/:todoId',
  *                   properties:
  *                     data:
  *                       $ref: '#/components/schemas/NewTodo'
- *               
+ *
  *       401:
  *         description: Unauthenticated
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *                 
+ *
 */
 
 /**
@@ -301,7 +297,7 @@ router.delete('/:todoId',
 *                   properties:
 *                     data:
 *                       $ref: '#/components/schemas/NewTodo'
-*               
+*
 *       401:
 *         description: Unauthenticated
 *         content:
@@ -314,7 +310,7 @@ router.delete('/:todoId',
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/ErrorResponse'
-*                 
+*
 *  */
 
 /**
@@ -342,7 +338,7 @@ router.delete('/:todoId',
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/SuccessResponse'
-*               
+*
 *       401:
 *         description: Unauthenticated
 *         content:
@@ -355,7 +351,7 @@ router.delete('/:todoId',
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/ErrorResponse'
-*                 
+*
 */
 
 export default router;
