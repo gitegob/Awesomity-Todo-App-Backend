@@ -1,0 +1,394 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "To help you keep track of your day-to-day tasks",
+    "title": "TodoApp",
+    "contact": {
+      "name": "Brian Gitego",
+      "email": "gitegobtech@gmail.com"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Todoist Endpoints"
+    },
+    {
+      "name": "Todos",
+      "description": "Todo/Tasks Endpoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Todoist Signup",
+        "description": "Todoist can sign up for an account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Signup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Signup successful"
+          },
+          "409": {
+            "description": "Todoist already exists"
+          },
+          "400": {
+            "description": "Invalid data entries"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Todoist Login",
+        "description": "Todoist can log in",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Todoist logged in"
+          },
+          "401": {
+            "description": "Invalid username or password"
+          },
+          "400": {
+            "description": "Invalid data entries"
+          }
+        }
+      }
+    },
+    "/api/todos": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Get all todos",
+        "description": "Todoist can get/search all todos/tasks",
+        "parameters": [
+          {
+            "name": "s",
+            "in": "query",
+            "type": "string",
+            "description": "Search keyword (optional)",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All todos/tasks retrieved"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Create a new todo/task",
+        "description": "Todoist create a new todo/task",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/TodoCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Todo/Task created"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      }
+    },
+    "/api/todos/export": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Export all todos",
+        "description": "Todoist can get/search and export all todos/tasks",
+        "parameters": [
+          {
+            "name": "s",
+            "in": "query",
+            "type": "string",
+            "description": "Search keyword (optional)",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      }
+    },
+    "/api/todos/{todoId}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Get a single todo/task",
+        "description": "Todoist get a single todo/task",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "type": "integer",
+            "description": "todoId",
+            "required": true,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo retrieved"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      },
+      "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Update a todo/task",
+        "description": "Todoist can Update a todo/task",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "type": "integer",
+            "description": "todoId",
+            "required": true,
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/TodoUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Todo/Task updated"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "404": {
+            "description": "Todo not found"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Delete a todo/task",
+        "description": "Todoist can Delete a todo/task",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "type": "integer",
+            "description": "todoId",
+            "required": true,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo deleted"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "404": {
+            "description": "Todo not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Signup": {
+      "required": [
+        "firstName",
+        "lastName",
+        "username",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "description": "First Name",
+          "example": "Charles"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last Name",
+          "example": "Rudahigwa"
+        },
+        "username": {
+          "type": "string",
+          "description": "Username",
+          "example": "crudahigwa"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "example": "Password"
+        }
+      }
+    },
+    "Login": {
+      "required": [
+        "username",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username",
+          "example": "crudahigwa"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password",
+          "example": "Password"
+        }
+      }
+    },
+    "TodoCreate": {
+      "required": [
+        "title",
+        "description",
+        "priority"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Task title",
+          "example": "Study"
+        },
+        "description": {
+          "type": "string",
+          "description": "Task description",
+          "example": "Learn about functional programming"
+        },
+        "priority": {
+          "type": "string",
+          "description": "Task priority (HIGH, MEDIUM or LOW)",
+          "example": "MEDIUM"
+        }
+      }
+    },
+    "TodoUpdate": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Task title",
+          "example": "Study"
+        },
+        "description": {
+          "type": "string",
+          "description": "Task description",
+          "example": "Learn about functional programming"
+        },
+        "priority": {
+          "type": "string",
+          "description": "Task priority (HIGH, MEDIUM or LOW)",
+          "example": "MEDIUM"
+        }
+      }
+    }
+  }
+}
