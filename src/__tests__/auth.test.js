@@ -1,12 +1,13 @@
 import chai from 'chai';
+import {
+  describe, it, after,
+} from 'mocha';
 import supertest from 'supertest';
 import app from '..';
 import db from '../database/config';
 import mockData from './utils/mockData';
 
-'use strict';
-
-const expect = chai.expect;
+const { expect } = chai;
 const request = supertest(app);
 
 describe('Signup tests', () => {

@@ -1,44 +1,41 @@
 import { Router } from 'express';
-import {
-  createTodo, getTodos, getTodo, updateTodo, deleteTodo, exportTodos,
-} from '../controllers/todos';
-import authenticate from '../middleware/auth';
-import { findUserTodo } from '../middleware/check';
-import validate from '../middleware/validation';
+import TodosController from '../controllers/todos';
+import Auth from '../middleware/auth';
+import Checker from '../middleware/checker';
 
 const router = Router();
 
 router.get('/',
-  authenticate,
-  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
-  getTodos);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, req.query?.s, 'todoSearch', next),
+  TodosController.getTodos);
 
 router.get('/export',
-  authenticate,
-  (req, res, next) => validate(res, req.query?.s, 'todoSearch', next),
-  exportTodos);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, req.query?.s, 'todoSearch', next),
+  TodosController.exportTodos);
 
 router.post('/',
-  authenticate,
-  (req, res, next) => validate(res, req.body, 'todo', next),
-  createTodo);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, req.body, 'todo', next),
+  TodosController.createTodo);
 
 router.get('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  getTodo);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
+  TodosController.getTodo);
 
 router.patch('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  (req, res, next) => validate(res, req.body, 'todoUpdate', next),
-  findUserTodo,
-  updateTodo);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
+  (req, res, next) => Checker.validate(res, req.body, 'todoUpdate', next),
+  Checker.findUserTodo,
+  TodosController.updateTodo);
 
 router.delete('/:todoId',
-  authenticate,
-  (req, res, next) => validate(res, +req.params.todoId, 'todoId', next),
-  findUserTodo,
-  deleteTodo);
+  Auth.authenticate,
+  (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
+  Checker.findUserTodo,
+  TodosController.deleteTodo);
 
 export default router;

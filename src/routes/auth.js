@@ -1,18 +1,17 @@
 import { Router } from 'express';
-import { login, signup } from '../controllers/auth';
-import { loginCheck, signupCheck } from '../middleware/check';
-import validate from '../middleware/validation';
+import AuthController from '../controllers/auth';
+import Checker from '../middleware/checker';
 
 const router = Router();
 
 router.post('/login',
-  (req, res, next) => validate(res, req.body, 'login', next),
-  loginCheck,
-  login);
+  (req, res, next) => Checker.validate(res, req.body, 'login', next),
+  Checker.loginCheck,
+  AuthController.login);
 
 router.post('/signup',
-  (req, res, next) => validate(res, req.body, 'signup', next),
-  signupCheck,
-  signup);
+  (req, res, next) => Checker.validate(res, req.body, 'signup', next),
+  Checker.signupCheck,
+  AuthController.signup);
 
 export default router;

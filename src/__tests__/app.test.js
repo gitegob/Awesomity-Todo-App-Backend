@@ -1,10 +1,11 @@
 import chai from 'chai';
+import {
+  describe, it,
+} from 'mocha';
 import supertest from 'supertest';
 import app from '..';
 
-'use strict';
-
-const expect = chai.expect;
+const { expect } = chai;
 const request = supertest(app);
 
 describe('App tests', () => {
