@@ -1,11 +1,11 @@
-import { success } from '../utils/response';
+import Response from '../services/response';
 
-/**
- *
- * @param {object} req request
- * @param {object} res response
- * @returns {object} Welcome message
- */
-const welcome = (req, res) => success(res, 200, 'Welcome to the TodoApp API!');
-
-export default welcome;
+export default class WelcomeController {
+  /**
+     *
+     * @param {object} req request
+     * @param {object} res response
+     * @returns {object} Welcome message
+     */
+  static welcome(req, res) { return Response.success(res, 200, 'Welcome to the TodoApp API!'); }
+}

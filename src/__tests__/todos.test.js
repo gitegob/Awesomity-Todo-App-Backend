@@ -1,12 +1,13 @@
 import chai from 'chai';
+import {
+  describe, it, after, before,
+} from 'mocha';
 import supertest from 'supertest';
 import app from '..';
 import db from '../database/config';
 import mockData from './utils/mockData';
 
-'use strict';
-
-const expect = chai.expect;
+const { expect } = chai;
 const request = supertest(app);
 
 describe('Todos tests', () => {
@@ -42,28 +43,28 @@ describe('Todos tests', () => {
     expect(res.status).to.eql(200);
   });
   it('should search todos', async () => {
-    const res = await request.get('/api/todos?s=' + mockData.todo.title.split(' ')[0])
+    const res = await request.get(`/api/todos?s=${mockData.todo.title.split(' ')[0]}`)
       .set('Authorization', `Bearer ${mockData.tokenOne}`);
     expect(res.status).to.eql(200);
   });
   it('should get one todo', async () => {
-    const res = await request.get('/api/todos/' + mockData.todoId1)
+    const res = await request.get(`/api/todos/${mockData.todoId1}`)
       .set('Authorization', `Bearer ${mockData.tokenOne}`);
     expect(res.status).to.eql(200);
   });
   it('should not get another\'s todo', async () => {
-    const res = await request.get('/api/todos/' + mockData.todoId2)
+    const res = await request.get(`/api/todos/${mockData.todoId2}`)
       .set('Authorization', `Bearer ${mockData.tokenOne}`);
     expect(res.status).to.eql(404);
   });
   it('should update todo', async () => {
-    const res = await request.patch('/api/todos/' + mockData.todoId2)
+    const res = await request.patch(`/api/todos/${mockData.todoId2}`)
       .set('Authorization', `Bearer ${mockData.tokenTwo}`)
       .send({ ...mockData.todo, title: 'Updated title' });
     expect(res.status).to.eql(200);
   });
   it('should not update todo with wrong info', async () => {
-    const res = await request.patch('/api/todos/' + mockData.todoId2)
+    const res = await request.patch(`/api/todos/${mockData.todoId2}`)
       .set('Authorization', `Bearer ${mockData.tokenTwo}`)
       .send({ ...mockData.todo, priority: 'extra high' });
     expect(res.status).to.eql(400);
@@ -75,7 +76,7 @@ describe('Todos tests', () => {
     expect(res.status).to.eql(401);
   });
   it('should delete todo', async () => {
-    const res = await request.delete('/api/todos/' + mockData.todoId2)
+    const res = await request.delete(`/api/todos/${mockData.todoId2}`)
       .set('Authorization', `Bearer ${mockData.tokenTwo}`);
     expect(res.status).to.eql(200);
   });

@@ -1,10 +1,10 @@
 import express, { json, urlencoded } from 'express';
 import { config } from 'dotenv';
-import { handleError } from './controllers/error';
+import ErrorController from './controllers/error';
 import routes from './routes';
 import log from './config/debug';
-import { testDB } from './database/services';
-import logger from './config/logger';
+import DBService from './services/db';
+import logger from './services/logger';
 
 config();
 const app = express();
@@ -17,14 +17,14 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 // TEST DB CONNECTION
-testDB();
+DBService.testDB();
 
 // ROUTING
 
 app.use(routes);
 
 // ERROR HANDLER
-app.use(handleError);
+app.use(ErrorController.handleError);
 
 const server = app.listen(process.env.PORT || 5000, () => {
   logger.info(`Server started on port ${server.address().port}`);
