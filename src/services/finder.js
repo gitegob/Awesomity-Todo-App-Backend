@@ -3,7 +3,7 @@ import Todo from '../database/models/Todo';
 import DBService from './db';
 
 export default class Finder {
-  /** Find user Todos
+  /** Find user Todos (async)
    *
    * @param {object} req password
    * @returns {object} List of todos

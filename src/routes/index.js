@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import WelcomeController from '../controllers/welcome';
-import ErrorController from '../controllers/error';
+import ErrorHandler from '../middleware/error';
 import authRoutes from './auth';
 import todoRoutes from './todos';
 import LogsController from '../controllers/logs';
@@ -15,6 +15,6 @@ router.get('/api/logs/:key', LogsController.dlLogs);
 router.use('/api/auth', authRoutes);
 router.use('/api/todos', todoRoutes);
 
-router.all('/*', ErrorController.notFound);
+router.all('/*', ErrorHandler.notFound);
 
 export default router;

@@ -6,7 +6,7 @@ import Response from '../services/response';
 import Finder from '../services/finder';
 
 export default class TodosController {
-  /**
+  /** Fetch/Export all todos (async)
    *
    * @param {object} req request
    * @param {object} res response
@@ -14,25 +14,16 @@ export default class TodosController {
    */
   static async getTodos(req, res) {
     const todos = await Finder.findTodos(req);
+    if (req.query.exp === 'yes') {
+      await CSVService.toCSV(todos);
+      return res
+        .status(200)
+        .download(path.join(`${__dirname}`, '..', '..', 'todos.csv'), 'todos.csv');
+    }
     return Response.success(res, 200, 'Todos retrieved.', todos);
   }
 
-  /**
-   *
-   * @param {object} req request
-   * @param {object} res response
-   * @returns {object} CSV List of todos
-   */
-  static async exportTodos(req, res, next) {
-    const todos = await Finder.findTodos(req);
-    const { error } = await CSVService.toCSV(todos);
-    if (error) return next(error);
-    return res
-      .status(200)
-      .download(path.join(`${__dirname}`, '..', '..', 'todos.csv'), 'todos.csv');
-  }
-
-  /**
+  /** Fetch a single Todo (async)
    *
    * @param {object} req request
    * @param {object} res response
@@ -44,7 +35,7 @@ export default class TodosController {
     return Response.success(res, 200, 'Todo retrieved.', todo);
   }
 
-  /**
+  /** Create a todo (async)
    *
    * @param {object} req request
    * @param {object} res response
@@ -63,7 +54,7 @@ export default class TodosController {
     return Response.success(res, 201, 'Todo created', newTodo.dataValues);
   }
 
-  /**
+  /** Update a todo (async)
    *
    * @param {object} req request
    * @param {object} res response
@@ -81,7 +72,7 @@ export default class TodosController {
     return Response.success(res, 200, 'Todo updated.', updatedTodo);
   }
 
-  /**
+  /** Delete a todo (async)
    *
    * @param {object} req request
    * @param {object} res response

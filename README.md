@@ -14,7 +14,7 @@ An app that helps you to keep track of your day-to-day tasks.
 - **GET /todos/:todoId:** Get a single task
 - **GET /api/todos:** Get all tasks
 - **GET /api/todos?s='search_query':** Search through tasks
-- **GET /api/todos/export:** Download tasks to a csv file
+- **GET /api/todos?exp:** Download tasks to a csv file
 - **PATCH /todos/:todoId:** Update a task
 - **DELETE /todos/:todoId:** Delete a task
 - **GET /api/logs/:key:** Download logs

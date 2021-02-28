@@ -1,41 +1,37 @@
 import { Router } from 'express';
 import TodosController from '../controllers/todos';
+import async from '../middleware/async';
 import Auth from '../middleware/auth';
 import Checker from '../middleware/checker';
 
 const router = Router();
 
 router.get('/',
-  Auth.authenticate,
+  async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, req.query?.s, 'todoSearch', next),
-  TodosController.getTodos);
-
-router.get('/export',
-  Auth.authenticate,
-  (req, res, next) => Checker.validate(res, req.query?.s, 'todoSearch', next),
-  TodosController.exportTodos);
+  async(TodosController.getTodos));
 
 router.post('/',
-  Auth.authenticate,
+  async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, req.body, 'todo', next),
-  TodosController.createTodo);
+  async(TodosController.createTodo));
 
 router.get('/:todoId',
-  Auth.authenticate,
+  async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
-  TodosController.getTodo);
+  async(TodosController.getTodo));
 
 router.patch('/:todoId',
-  Auth.authenticate,
+  async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
   (req, res, next) => Checker.validate(res, req.body, 'todoUpdate', next),
   Checker.findUserTodo,
-  TodosController.updateTodo);
+  async(TodosController.updateTodo));
 
 router.delete('/:todoId',
-  Auth.authenticate,
+  async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
   Checker.findUserTodo,
-  TodosController.deleteTodo);
+  async(TodosController.deleteTodo));
 
 export default router;

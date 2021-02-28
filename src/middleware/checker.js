@@ -34,7 +34,7 @@ export default class Checker {
     return next();
   }
 
-  /** Find a user and their password before logging in
+  /** Find a user and their password before logging in (async)
    *
    * @param {object} req request
    * @param {object} res response
@@ -52,7 +52,7 @@ export default class Checker {
     return next();
   }
 
-  /** Check to see if a user already exists before signup
+  /** Check to see if a user already exists before signup (async)
    *
    * @param {object} req request
    * @param {object} res response

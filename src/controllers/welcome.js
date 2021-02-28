@@ -1,7 +1,7 @@
 import Response from '../services/response';
 
 export default class WelcomeController {
-  /**
+  /** Welcome
      *
      * @param {object} req request
      * @param {object} res response
