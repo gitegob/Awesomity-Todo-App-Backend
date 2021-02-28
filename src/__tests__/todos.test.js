@@ -42,6 +42,11 @@ describe('Todos tests', () => {
       .set('Authorization', `Bearer ${mockData.tokenOne}`);
     expect(res.status).to.eql(200);
   });
+  it('should export todos', async () => {
+    const res = await request.get('/api/todos?exp=yes')
+      .set('Authorization', `Bearer ${mockData.tokenOne}`);
+    expect(res.status).to.eql(200);
+  });
   it('should search todos', async () => {
     const res = await request.get(`/api/todos?s=${mockData.todo.title.split(' ')[0]}`)
       .set('Authorization', `Bearer ${mockData.tokenOne}`);

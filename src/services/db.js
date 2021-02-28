@@ -1,10 +1,9 @@
-import log from '../config/debug';
-import env from '../config/env';
 import logger from './logger';
 import db from '../database/config';
+import env from '../config/env';
 
 export default class DBService {
-/** Handle database calls
+/** Handle database calls (async)
  *
  * @param {object} model Database model or its instance
  * @param {string} action Action to be performed
@@ -12,33 +11,16 @@ export default class DBService {
  * @returns {object} result
  */
   static async dbAction(model, action, data) {
-    let result;
-    try {
-      result = await model[action](data);
-    } catch (error) {
-      log.sqlz(error);
-      log.test(error);
-      result = null;
-    }
+    const result = await model[action](data);
     return result;
   }
 
-  /** Test the database connection
+  /** Test the database connection (async)
  *
  * @returns {object} result
  */
-  static async testDB() {
-    if (env.NODE_ENV !== 'test') {
-      try {
-        await db.authenticate();
-        logger.info('Database Connected...');
-        return log.db('Database Connected...');
-      } catch (error) {
-        logger.error(error.stack);
-        log.error(error.stack);
-        return log.error('Error:', error.stack);
-      }
-    }
-    return null;
+  static async connectDB() {
+    await db.authenticate();
+    if (env.NODE_ENV !== 'test') logger.info('Database Connected...');
   }
 }

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "API of ToDo App as a challenge from Awesomity",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "NODE_ENV=test DEBUG=app:test:*,app:app: nyc mocha --require @babel/register src/__tests__/*.test.js --timeout 10000 --exit",
     "start": "DEBUG=app:app:,app:error:,app:db: babel-node src/index.js",
@@ -41,6 +44,7 @@
     "debug": "^2.6.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.6",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
@@ -54,6 +58,7 @@
   },
   "devDependencies": {
     "@babel/register": "^7.12.13",
+    "@types/express-rate-limit": "^5.1.1",
     "@types/sinon": "^9.0.10",
     "chai": "^4.3.0",
     "coveralls": "^3.1.0",

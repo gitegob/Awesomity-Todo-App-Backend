@@ -4,7 +4,7 @@ import Response from '../services/response';
 import JWTService from '../services/jwt';
 
 export default class Auth {
-/** Authenticate the user token
+/** Authenticate the user token (async)
  *
  * @param {object} req request
  * @param {object} res response

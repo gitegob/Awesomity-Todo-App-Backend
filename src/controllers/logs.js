@@ -2,7 +2,7 @@ import env from '../config/env';
 import Response from '../services/response';
 
 export default class LogsController {
-  /**
+  /** Download logs
    *
    * @param {object} req request
    * @param {object} res response

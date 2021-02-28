@@ -103,7 +103,7 @@
         "tags": [
           "Todos"
         ],
-        "summary": "Get all todos",
+        "summary": "Get all todos or Export them to a CSV file",
         "description": "Todoist can get/search all todos/tasks",
         "parameters": [
           {
@@ -111,6 +111,13 @@
             "in": "query",
             "type": "string",
             "description": "Search keyword (optional)",
+            "required": false
+          },
+          {
+            "name":"exp",
+            "in":"query",
+            "type":"string",
+            "description":"Export prompt (optional). Set it to 'yes' for exporting todos/tasks ",
             "required": false
           }
         ],
@@ -147,37 +154,6 @@
         "responses": {
           "201": {
             "description": "Todo/Task created"
-          },
-          "401": {
-            "description": "Unauthenticated"
-          }
-        }
-      }
-    },
-    "/api/todos/export": {
-      "get": {
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "tags": [
-          "Todos"
-        ],
-        "summary": "Export all todos",
-        "description": "Todoist can get/search and export all todos/tasks",
-        "parameters": [
-          {
-            "name": "s",
-            "in": "query",
-            "type": "string",
-            "description": "Search keyword (optional)",
-            "required": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
           },
           "401": {
             "description": "Unauthenticated"

@@ -2,15 +2,17 @@ import chai from 'chai';
 import {
   describe, it, after,
 } from 'mocha';
+import sinon from 'sinon';
 import supertest from 'supertest';
 import app from '..';
 import db from '../database/config';
+import JWTService from '../services/jwt';
 import mockData from './utils/mockData';
 
 const { expect } = chai;
 const request = supertest(app);
-
-describe('Signup tests', () => {
+const sandbox = sinon.createSandbox();
+describe('Auth tests', () => {
   after('Clear the database', async () => {
     await db.sync({ force: true });
   });
@@ -23,6 +25,13 @@ describe('Signup tests', () => {
     const res = await request.post('/api/auth/login').send({ username, password });
     expect(res.status).to.eql(200);
   });
+  // it('should return an error', async () => {
+  //   sandbox.stub(JWTService, 'signToken').throws(new Error('Something happened'));
+  //   const { username, password } = mockData.signup;
+  //   const res = await request.post('/api/auth/login').send({ username, password });
+  //   expect(res.status).to.eql(500);
+  //   sandbox.restore();
+  // });
   it('should not signup an existing user', async () => {
     const res = await request.post('/api/auth/signup').send(mockData.signup);
     expect(res.status).to.eql(409);
