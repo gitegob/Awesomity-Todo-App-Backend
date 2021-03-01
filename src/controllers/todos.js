@@ -61,15 +61,33 @@ export default class TodosController {
    * @returns {object} Updated todo
    */
   static async updateTodo(req, res) {
-    const { title, description, priority } = req.body;
+    const {
+      title, description, priority, completed,
+    } = req.body;
     const { __todo: todo } = req;
     const updatedTodo = await DBService.dbAction(todo, 'update', {
       title,
       description,
       priority,
+      completed,
       modifiedAt: new Date().toLocaleString(),
     });
     return Response.success(res, 200, 'Todo updated.', updatedTodo);
+  }
+
+  /** Update a todo (async)
+   *
+   * @param {object} req request
+   * @param {object} res response
+   * @returns {object} Updated todo
+   */
+  static async updateAllCompleted(req, res) {
+    const { completed } = req.body;
+    await DBService.dbAction(Todo, 'update', {
+      completed,
+      modifiedAt: new Date().toLocaleString(),
+    }, { where: { todoistId: req.user.id } });
+    return Response.success(res, 200, 'All Todos/Tasks statuses updated.');
   }
 
   /** Delete a todo (async)

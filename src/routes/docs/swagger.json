@@ -114,10 +114,10 @@
             "required": false
           },
           {
-            "name":"exp",
-            "in":"query",
-            "type":"string",
-            "description":"Export prompt (optional). Set it to 'yes' for exporting todos/tasks ",
+            "name": "exp",
+            "in": "query",
+            "type": "string",
+            "description": "Export prompt (optional). Set it to 'yes' for exporting todos/tasks ",
             "required": false
           }
         ],
@@ -160,7 +160,7 @@
           }
         }
       },
-      "delete":{
+      "delete": {
         "security": [
           {
             "bearerAuth": []
@@ -174,6 +174,45 @@
         "responses": {
           "200": {
             "description": "All Todos deleted"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      }
+    },
+    "/api/todos/completed": {
+      "patch": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Update all todo/task completed statuses",
+        "description": "Update all todo/task completed statuses",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "completed": {
+                    "type": "string",
+                    "description": "completed status (true or false)",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "All Todos/Tasks statuses updated"
           },
           "401": {
             "description": "Unauthenticated"

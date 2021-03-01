@@ -11,10 +11,12 @@ An app that helps you to keep track of your day-to-day tasks.
 - **POST /api/auth/signup:** Create an account
 - **POST /api/auth/login:** Log into your account
 - **POST /api/todos/:** Create a new task
+- **DELETE /api/todos/:** Delete all tasks
 - **GET /todos/:todoId:** Get a single task
 - **GET /api/todos:** Get all tasks
 - **GET /api/todos?s='search_query':** Search through tasks
 - **GET /api/todos?exp:** Download tasks to a csv file
+- **PATCH /todos/completed** Update all tasks' completed statuses
 - **PATCH /todos/:todoId:** Update a task
 - **DELETE /todos/:todoId:** Delete a task
 - **GET /api/logs/:key:** Download logs
