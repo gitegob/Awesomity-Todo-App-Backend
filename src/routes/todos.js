@@ -16,6 +16,10 @@ router.post('/',
   (req, res, next) => Checker.validate(res, req.body, 'todo', next),
   async(TodosController.createTodo));
 
+router.delete('/',
+  async(Auth.authenticate),
+  async(TodosController.deleteTodos));
+
 router.get('/:todoId',
   async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),
@@ -27,10 +31,6 @@ router.patch('/:todoId',
   (req, res, next) => Checker.validate(res, req.body, 'todoUpdate', next),
   Checker.findUserTodo,
   async(TodosController.updateTodo));
-
-router.delete('/delete',
-  async(Auth.authenticate),
-  async(TodosController.deleteTodos));
 
 router.delete('/:todoId',
   async(Auth.authenticate),
