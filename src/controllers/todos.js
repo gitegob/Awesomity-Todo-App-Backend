@@ -83,4 +83,15 @@ export default class TodosController {
     await DBService.dbAction(todo, 'destroy');
     return Response.success(res, 200, `Todo with title: ${todo.dataValues.title} deleted.`);
   }
+
+  /** Delete all todos (async)
+   *
+   * @param {object} req request
+   * @param {object} res response
+   * @returns {object} Success
+   */
+  static async deleteTodos(req, res) {
+    await DBService.dbAction(Todo, 'destroy', { where: { todoistId: req.user.id } });
+    return Response.success(res, 200, 'All todos deleted.');
+  }
 }

@@ -28,6 +28,10 @@ router.patch('/:todoId',
   Checker.findUserTodo,
   async(TodosController.updateTodo));
 
+router.delete('/delete',
+  async(Auth.authenticate),
+  async(TodosController.deleteTodos));
+
 router.delete('/:todoId',
   async(Auth.authenticate),
   (req, res, next) => Checker.validate(res, +req.params.todoId, 'todoId', next),

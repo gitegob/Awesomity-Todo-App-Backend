@@ -268,6 +268,28 @@
           }
         }
       }
+    },
+    "/api/todos/delete":{
+      "delete":{
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Todos"
+        ],
+        "summary": "Delete all todos/tasks",
+        "description": "Todoist can Delete all todos/tasks",
+        "responses": {
+          "200": {
+            "description": "All Todos deleted"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        }
+      }
     }
   },
   "definitions": {
