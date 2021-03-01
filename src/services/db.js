@@ -10,8 +10,8 @@ export default class DBService {
  * @param {object} data data or conditions
  * @returns {object} result
  */
-  static async dbAction(model, action, data) {
-    const result = await model[action](data);
+  static async dbAction(model, action, data, extra) {
+    const result = await model[action](data, extra);
     return result;
   }
 

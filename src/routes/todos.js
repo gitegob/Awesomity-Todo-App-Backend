@@ -8,7 +8,8 @@ const router = Router();
 
 router.get('/',
   async(Auth.authenticate),
-  (req, res, next) => Checker.validate(res, req.query?.s, 'todoSearch', next),
+  (req, res, next) => Checker.validate(res, req.query.s, 'todoSearch', next),
+  (req, res, next) => Checker.validate(res, req.query.exp, 'exp', next),
   async(TodosController.getTodos));
 
 router.post('/',
@@ -19,6 +20,11 @@ router.post('/',
 router.delete('/',
   async(Auth.authenticate),
   async(TodosController.deleteTodos));
+
+router.patch('/completed',
+  async(Auth.authenticate),
+  (req, res, next) => Checker.validate(res, req.body, 'todoUpdate', next),
+  async(TodosController.updateAllCompleted));
 
 router.get('/:todoId',
   async(Auth.authenticate),

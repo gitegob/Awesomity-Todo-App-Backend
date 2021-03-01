@@ -68,6 +68,12 @@ describe('Todos tests', () => {
       .send({ ...mockData.todo, title: 'Updated title' });
     expect(res.status).to.eql(200);
   });
+  it('should update all todo completed statuses', async () => {
+    const res = await request.patch('/api/todos/completed')
+      .set('Authorization', `Bearer ${mockData.tokenTwo}`)
+      .send({ completed: true });
+    expect(res.status).to.eql(200);
+  });
   it('should not update todo with wrong info', async () => {
     const res = await request.patch(`/api/todos/${mockData.todoId2}`)
       .set('Authorization', `Bearer ${mockData.tokenTwo}`)

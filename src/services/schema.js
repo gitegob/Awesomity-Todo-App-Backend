@@ -46,6 +46,9 @@ const schema = {
     priority: Joi.string()
       .valid('HIGH', 'MEDIUM', 'LOW')
       .error(new Error('priority must be one of HIGH, MEDIUM or LOW')),
+    completed: Joi.boolean()
+      .valid(true, false)
+      .error(new Error('completed must be true or false')),
   }),
   todoId: Joi
     .number()
@@ -57,6 +60,9 @@ const schema = {
     .trim()
     .max(100)
     .error(new Error('Invalid Search Parameter')),
+  exp: Joi.string()
+    .valid('yes')
+    .error(new Error('exp parameter can only be \'yes\'')),
 };
 
 export default schema;

@@ -24,6 +24,11 @@ const Todo = db.define(
       },
       allowNull: false,
     },
+    completed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   { timestamps: true, updatedAt: 'modifiedAt' },
 );
