@@ -85,4 +85,9 @@ describe('Todos tests', () => {
       .set('Authorization', `Bearer ${mockData.tokenTwo}`);
     expect(res.status).to.eql(200);
   });
+  it('should delete all todos', async () => {
+    const res = await request.delete('/api/todos')
+      .set('Authorization', `Bearer ${mockData.tokenOne}`);
+    expect(res.status).to.eql(200);
+  });
 });
